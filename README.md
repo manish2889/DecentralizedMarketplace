@@ -1,66 +1,60 @@
-## Foundry
+# Decentralized Marketplace
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+This repository contains the Solidity smart contract for a decentralized marketplace built on the Polygon network. The decentralized marketplace allows users to list products for sale, purchase listed products, and leave ratings for sellers, all facilitated through secure and transparent smart contracts.
 
-Foundry consists of:
+## Features
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+- **Product Listing**: Sellers can list their products with details such as name, description, and price.
+- **Secure Transactions**: Buyers can purchase listed products by sending the required amount to an escrow smart contract.
+- **Escrow System**: Funds from purchases are held in escrow until the buyer confirms the delivery and releases the payment to the seller.
+- **Rating System**: After a successful transaction, buyers can rate the seller, creating a decentralized reputation system.
+- **Scalability**: Leveraging the Polygon network's layer-2 solution, the marketplace offers fast transaction times and low gas fees.
 
-## Documentation
+## Getting Started
 
-https://book.getfoundry.sh/
+To run and interact with the Decentralized Marketplace smart contract, you'll need the following:
 
-## Usage
+- An Ethereum-compatible development environment (e.g., Remix, Truffle, or Hardhat)
+- A connection to the Polygon network (e.g., using the Polygon RPC endpoint or a local Polygon node)
 
-### Build
+1. Clone this repository to your local machine.
+2. Compile the `DecentralizedMarketplace.sol` file.
+3. Deploy the smart contract to the Polygon network.
+4. Interact with the deployed contract using the provided functions and events.
 
-```shell
-$ forge build
-```
+## Contract Functions
 
-### Test
+### `listProduct(string _name, string _description, uint256 _price)`
+Lists a new product for sale with the provided details.
 
-```shell
-$ forge test
-```
+### `purchaseProduct(uint256 _id)`
+Allows a buyer to purchase a listed product by sending the required amount. Creates an escrow transaction.
 
-### Format
+### `releaseEscrow(uint256 _escrowId, uint256 _rating)`
+Releases the funds from the escrow to the seller and allows the buyer to rate the seller.
 
-```shell
-$ forge fmt
-```
+### `updateProduct(uint256 _id, string _name, string _description, uint256 _price)`
+Allows the seller to update the details of a listed product.
 
-### Gas Snapshots
+### `removeProduct(uint256 _id)`
+Allows the seller to remove a listed product from the marketplace.
 
-```shell
-$ forge snapshot
-```
+### `getProduct(uint256 _id)`
+Retrieves the details of a listed product.
 
-### Anvil
+### `getEscrow(uint256 _id)`
+Retrieves the details of an escrow transaction.
 
-```shell
-$ anvil
-```
+## Events
 
-### Deploy
+- `ProductListed`: Emitted when a new product is listed.
+- `EscrowCreated`: Emitted when a new escrow transaction is created.
+- `EscrowReleased`: Emitted when an escrow transaction is released, and the seller is rated.
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
+## Contributing
 
-### Cast
+Contributions to this project are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request.
 
-```shell
-$ cast <subcommand>
-```
+## License
 
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+This project is licensed under the [MIT License](LICENSE).
